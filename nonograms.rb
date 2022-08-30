@@ -29,8 +29,10 @@ class Nonogram
       end
     end
 
-    p clue_lines = clue_generator.call(@data)
-    p clue_column = clue_generator.call(@data.map(&:chars).transpose.map(&:join))
+    clue_lines = clue_generator.call(@data)
+    clue_column = clue_generator.call(@data.map(&:chars).transpose.map(&:join))
+
+    [clue_lines, clue_column]
   end
 
   def anwser
