@@ -35,7 +35,7 @@ class Nonogram
     [clue_lines, clue_column]
   end
 
-  def anwser
+  def answer
     @data.map do |line|
       line.chars
       .map { _1 == '1' ? '██' : '  ' }
@@ -65,5 +65,5 @@ nonogram = Nonogram.new(%w[
 ])
 
 p (p nonogram.to_s).to_nonogram
-puts nonogram.anwser
+puts nonogram.answer
 nonogram.puzzle
