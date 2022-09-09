@@ -66,4 +66,4 @@ nonogram = Nonogram.new(%w[
 
 p (p nonogram.to_s).to_nonogram
 puts nonogram.answer
-nonogram.puzzle
+p nonogram.puzzle
