@@ -4,14 +4,25 @@
 	<meta charset="UTF-8">
 	<title>Nonograms</title>
 	<link rel="icon" href="https://raw.githubusercontent.com/michaelampr/jam/master/icons/table-cell-merge.svg" type="image/svg+xml">
+
 	<script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/daisyui@2.25.0/dist/full.css" rel="stylesheet" type="text/css" />
 	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 </head>
 <script>
 	const params = new Proxy(new URLSearchParams(window.location.search), {
   	get: (searchParams, prop) => searchParams.get(prop),
 	});
+
+	const sizes = {
+		all:    { min: 0, max: 200**2 },
+		tiny:   { min: 0, max: 20**2 },
+		small:  { min: 20**2, max: 30**2 },
+		medium: { min: 30**2, max: 50**2 },
+		lange:  { min: 50**2, max: 100**2 },
+		giant:  { min: 100**2, max: 200**2 },
+}
 
 	const puzzles = [
 		{ id: 57254, title: "Girl",     image: "12.15.5Ya-d-vnY2cGs2-41U2U2U6U6YfYvY"     },
@@ -21,6 +32,16 @@
 		{ id: 56599, title: "Sight",    image: "20.10.07M07w03w01_Y8__V-A_fCs0ce00700f00" },
 		{ id: 56587, title: "Cactus",   image: "9.15.i0I5jyly8doJRdyBy8d4Hvw"             },
 	];
+
+	const fuse = new Fuse(puzzles, { keys: ['id', 'title'] })
+	function puzzles_filter(seachString, currentSize) {
+		let puzzles_searched = seachString ? fuse.search(seachString).map(searchItem => searchItem.item) : puzzles
+		let puzzles_filtered = puzzles_searched.filter(puzzle => {
+			let area = puzzle.image.split('.').slice(0, 2).reduce((a, b) => a * b, 1)
+			return area > sizes[currentSize].min && area < sizes[currentSize].max
+		})
+		return puzzles_filtered
+	}
 </script>
 <body x-data="{ page: parseInt(params.p) ? 'puzzle' : params.p || 'home' }">
 
@@ -30,13 +51,15 @@
 	<div class="flex-1 font-bold breadcrumbs px-4">
 		<ul>
 			<li><a href="?p=home">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 24 24" width="24" fill="currentColor"><path d="M4,2 L2,2 L2,4 L4,4 L4,2 Z M6,2 L6,4 L8,4 L8,2 L10,2 L10,4 L12,4 L12,2 L6,2 Z M12,6 L6,6 L6,12 L12,12 L12,6 Z M4,12 L4,10 L2,10 L2,12 L4,12 Z M2,8 L4,8 L4,6 L2,6 L2,8 Z M2,0 L12,0 C13.1045695,0 14,0.8954305 14,2 L14,12 C14,13.1045695 13.1045695,14 12,14 L2,14 C0.8954305,14 0,13.1045695 0,12 L0,2 C0,0.8954305 0.8954305,0 2,0 Z"></path></svg>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 24 24" width="32" fill="currentColor"><path d="M4,2 L2,2 L2,4 L4,4 L4,2 Z M6,2 L6,4 L8,4 L8,2 L10,2 L10,4 L12,4 L12,2 L6,2 Z M12,6 L6,6 L6,12 L12,12 L12,6 Z M4,12 L4,10 L2,10 L2,12 L4,12 Z M2,8 L4,8 L4,6 L2,6 L2,8 Z M2,0 L12,0 C13.1045695,0 14,0.8954305 14,2 L14,12 C14,13.1045695 13.1045695,14 12,14 L2,14 C0.8954305,14 0,13.1045695 0,12 L0,2 C0,0.8954305 0.8954305,0 2,0 Z"></path></svg>
 				Nonograms
 			</a></li>
+			<li class="capitalize" x-show="page !== 'home' && page !== 'puzzle'" x-text="page"></li>
+			<li x-show="page === 'puzzle'"><a href="?p=home#puzzles">Puzzles</a></li>
 			<li
-				class="sm:max-w-fit truncate capitalize"
-				x-show="page !== 'home'"
-				x-text="page === 'puzzle' ? puzzles.filter(puzzle => puzzle.id === parseInt(params.p))[0].title : page"
+				class="sm:max-w-fit truncate"
+				x-show="page === 'puzzle'"
+				x-text="puzzles.filter(puzzle => puzzle.id === parseInt(params.p))[0].title"
 			></li>
 		</ul>
 	</div>
@@ -57,13 +80,13 @@
 	</div>
 </div>
 
-<div x-data="{ currentSize: 'all' }">
+<div x-data="{ puzzles_filtered: puzzles, seachString: '', currentSize: 'all',}">
 	<template x-if="page === 'home'">
 		<div
 			class="
 				flex flex-col items-center bg-fixed bg-gradient-to-b
 				from-blue-500 to-blue-300
-				dark:from-indigo-900 dark:to-slate-900
+				dark:from-emerald-900 dark:to-slate-900
 			"
 		>
 
@@ -103,8 +126,8 @@
 						<span class="hidden sm:inline">Random</span>
 					</button>
 					<div class="input-group">
-						<input type="text" placeholder="Search…" class="input w-full" />
-						<button class="btn btn-square">
+						<input type="text" placeholder="Search…" class="input w-full" x-model="seachString" />
+						<button class="btn btn-square" @click="puzzles_filtered = puzzles_filter(seachString, currentSize)">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2.5 -2.5 24 24" width="24" fill="currentColor"><path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12zm6.32-1.094l3.58 3.58a1 1 0 1 1-1.415 1.413l-3.58-3.58a8 8 0 1 1 1.414-1.414z"></path></svg>
 						</button>
 					</div>
@@ -112,11 +135,16 @@
 				<div class="tabs">
 					<template x-for="size in ['all', 'tiny', 'small', 'medium', 'lange', 'giant']">
 						<button
-							class="tab tab-xs sm:tab-md [--tab-bg:hsl(var(--b2))] capitalize"
-							:class="size === currentSize ? 'tab-lifted tab-active' : '[--tab-color:hsl(var(--pc))]'"
-							x-text="size"
-							@click="currentSize = size"
-						></button>
+							class="tab tab-xs sm:tab-md [--tab-bg:hsl(var(--b2))]"
+							:class="size === currentSize ? 'tab-lifted tab-active' : 'text-white'"
+							@click="currentSize = size; puzzles_filtered = puzzles_filter(seachString, currentSize)"
+						>
+							<span
+								class="capitalize duration-75"
+								:class="size !== currentSize ? 'hover:scale-110' : ''"
+								x-text="size"
+							></span>
+						</button>
 					</template>
 					<span></span>
 				</div>
@@ -130,7 +158,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<template x-for="(puzzle, id) in puzzles" :key="puzzle.id">
+							<template x-for="(puzzle, id) in puzzles_filtered" :key="puzzle.id">
 								<tr>
 									<td x-text="puzzle.id"></td>
 									<td x-text="puzzle.image.split('.').slice(0, 2).join('x')"></td>
