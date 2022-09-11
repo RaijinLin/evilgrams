@@ -27,8 +27,8 @@ title: Home
       </p>
       <div class="form-control flex flex-row gap-4">
         <a class="btn btn-primary" href="#puzzles">Play</a>
-        <a class="btn btn-secondary" href="/tutorial">Tutorial</a>
-        <a class="btn btn-accent" href="/about">About</a>
+        <a class="btn btn-secondary" href="{{ '/tutorial' | url }}">Tutorial</a>
+        <a class="btn btn-accent" href="{{ '/about' | url }}">About</a>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@ title: Home
 
     fuse: null,
     puzzlesFilter() {
-      let puzzlesSearched = this.seachString ? this.fuse.search(this.seachString).map(searchItem => searchItem.item) : this.puzzles;
+      let puzzlesSearched = this.seachString ? this.fuse.search(this.seachString).map(searchItem => searchItem.item) : this.puzzles.reverse();
       this.puzzlesFiltered = puzzlesSearched.filter(puzzle => {
         let area = puzzle.image.split('.').slice(0, 2).reduce((a, b) => a * b, 1);
         return area > this.sizes[this.currentSize].min && area < this.sizes[this.currentSize].max;
@@ -138,7 +138,7 @@ title: Home
                 <a
                   class="link"
                   x-text="puzzle.title"
-                  :href="'./puzzle?id=' + puzzle.id"
+                  :href="'{{ '/puzzle' | url }}?id=' + puzzle.id"
                 ></a>
               </td>
             </tr>
@@ -146,5 +146,10 @@ title: Home
         </tbody>
       </table>
     </div>
+    <button
+      class="btn btn-primary mt-8"
+      x-show="puzzlesReady.length !== 0"
+      @click="puzzlesMore()"
+    >Show More</button>    
   </div>
 </div>
