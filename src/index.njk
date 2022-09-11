@@ -1,0 +1,150 @@
+---
+layout: layouts/default.njk
+title: Home
+---
+
+<div
+  class="
+    hero bg-base-100
+    bg-[url('https://images.unsplash.com/photo-1656296506976-81e916ca9d74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80')]
+    dark:text-white
+  "
+>
+  <div class="hero-overlay bg-base-100 bg-opacity-60 backdrop-blur-md"></div>
+  <div class="hero-content my-16 flex-col md:flex-row-reverse max-w-4xl lg:gap-8">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/6/64/Paint_by_numbers_Animation.gif"
+      class="max-w-xs rounded-lg shadow-2xl bg-slate-300"
+    />
+    <div class="flex flex-col items-center md:items-start">
+      <h1 class="text-5xl font-bold">It's big brain time!</h1>
+      <p class="py-6 text-justify">
+        Nonograms are picture logic puzzles in which cells in a grid must be
+        colored or left blank according to numbers at the side of the grid to
+        reveal a hidden pixel art-like picture. In this puzzle type, the numbers
+        are a form of discrete tomography that measures how many unbroken lines
+        of filled-in squares there are in any given row or column.
+      </p>
+      <div class="form-control flex flex-row gap-4">
+        <a class="btn btn-primary" href="#puzzles">Play</a>
+        <a class="btn btn-secondary" href="/tutorial">Tutorial</a>
+        <a class="btn btn-accent" href="/about">About</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+<div
+  id="puzzles"
+  class="
+    flex flex-col items-center bg-fixed bg-gradient-to-b
+    from-blue-500 to-blue-300
+    dark:from-blue-900 dark:to-slate-900
+  "
+  x-data="{
+    puzzles: [],
+    puzzlesFiltered: [],
+    puzzlesReady: [],
+    puzzlesShow: [],
+    currentChunk: 1,
+
+    seachString: '',
+
+    sizes: {
+      all:    { min: 0,    max: 40000 },
+      tiny:   { min: 0,    max: 225   },
+      small:  { min: 225,  max: 625   },
+      medium: { min: 625,  max: 1600  },
+      lange:  { min: 1600, max: 3025  },
+      giant:  { min: 3025, max: 40000 },
+    },
+    currentSize: 'all',
+
+    fuse: null,
+    puzzlesFilter() {
+      let puzzlesSearched = this.seachString ? this.fuse.search(this.seachString).map(searchItem => searchItem.item) : this.puzzles;
+      this.puzzlesFiltered = puzzlesSearched.filter(puzzle => {
+        let area = puzzle.image.split('.').slice(0, 2).reduce((a, b) => a * b, 1);
+        return area > this.sizes[this.currentSize].min && area < this.sizes[this.currentSize].max;
+      });
+      this.puzzlesReady = this.puzzlesFiltered;
+      this.puzzlesShow = [];
+      this.puzzlesMore();
+    },
+    puzzlesMore() {
+      this.puzzlesShow.push(...this.puzzlesReady.splice(0, 50));
+    },
+  }"
+  x-init="
+    puzzles = await (await fetch('https://raw.githubusercontent.com/NNBnh/evilgrams/main/puzzles.json')).json();
+    fuse = new Fuse(puzzles, { keys: ['id', 'title'] });
+    puzzlesFilter();
+  "
+>
+  <div class="w-11/12 md:w-4/5 max-w-3xl py-16 flex flex-col items-center">
+    <div class="form-control w-full mb-8 flex flex-row gap-4">
+      <button
+        class="btn gap-2"
+        @click="console.log(puzzlesFiltered[Math.floor(Math.random() * puzzlesFiltered.length)].id)"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M16,0 C18.209139,0 20,1.790861 20,4 L20,16 C20,18.209139 18.209139,20 16,20 L4,20 C1.790861,20 0,18.209139 0,16 L0,4 C0,1.790861 1.790861,0 4,0 L16,0 Z M15,13 C13.8954305,13 13,13.8954305 13,15 C13,16.1045695 13.8954305,17 15,17 C16.1045695,17 17,16.1045695 17,15 C17,13.8954305 16.1045695,13 15,13 Z M10,8 C8.8954305,8 8,8.8954305 8,10 C8,11.1045695 8.8954305,12 10,12 C11.1045695,12 12,11.1045695 12,10 C12,8.8954305 11.1045695,8 10,8 Z M5,3 C3.8954305,3 3,3.8954305 3,5 C3,6.1045695 3.8954305,7 5,7 C6.1045695,7 7,6.1045695 7,5 C7,3.8954305 6.1045695,3 5,3 Z"></path></svg>
+        <span class="hidden sm:inline">Random</span>
+      </button>
+      <div class="input-group">
+        <input
+          type="text" placeholder="Search…" class="input input-bordered w-full" x-model="seachString"
+          @keyup.enter="puzzlesFilter()"
+        />
+        <button class="btn btn-square" @click="puzzlesFilter()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2.5 -2.5 24 24" width="24" fill="currentColor"><path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12zm6.32-1.094l3.58 3.58a1 1 0 1 1-1.415 1.413l-3.58-3.58a8 8 0 1 1 1.414-1.414z"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="tabs">
+      <template x-for="size in Object.keys(sizes)">
+        <button
+          class="tab tab-xs sm:tab-md [--tab-bg:hsl(var(--b2))]"
+          :class="size === currentSize ? 'tab-lifted tab-active' : 'text-white'"
+          @click="currentSize = size; puzzlesFilter()"
+        >
+          <span
+            class="capitalize duration-75"
+            :class="size !== currentSize ? 'hover:scale-110' : ''"
+            x-text="size"
+          ></span>
+        </button>
+      </template>
+      <span></span>
+    </div>
+
+    <div class="overflow-x-auto w-full rounded-md overflow-hidden bg-base-200">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Size</td>
+            <td>Name</td>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="(puzzle, id) in puzzlesShow" :key="puzzle.id">
+            <tr>
+              <td x-text="puzzle.id"></td>
+              <td x-text="puzzle.image.split('.').slice(0, 2).join('x')"></td>
+              <td>
+                <a
+                  class="link"
+                  x-text="puzzle.title"
+                  :href="'./puzzle?id=' + puzzle.id"
+                ></a>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
