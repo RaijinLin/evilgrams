@@ -8,8 +8,41 @@ pagination:
 permalink: "puzzle/{{ puzzle.id | slug }}/"
 ---
 
-<div class="flex flex-col items-center py-8 gap-8">
+<div class="w-full p-4 flex items-center gap-4">
+  <div
+    class="btn btn-sm btn-outline btn-disabled font-mono lowercase"
+    x-data="{ size: '{{ puzzle.image }}'.split('.')[0] }"
+    x-text="size"
+  >??x??</div>
+  <div class="grow text-center xs:text-2xl font-bold truncate">{{ puzzle.title }}</div>
+  <button
+    class="btn btn-sm btn-secondary font-mono"
+    x-text="00:00"
+  >00:00</button>
+</div>
+
+<div class="flex flex-col items-center pb-8 gap-8">
   <canvas id="game" class="w-full"></canvas>
+
+  <div class="flex gap-2">
+    <button class="btn btn-sm btn-circle btn-accent">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -6 24 24" width="24" fill="currentColor"><path d="M10 12c-5.042.007-10-2.686-10-6S4.984-.017 10 0c5.016.017 10 2.686 10 6s-4.958 5.993-10 6zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path></svg>
+    </button>
+    <div
+      class="
+        a2a_kit a2a_kit_size_24 a2a_default_style
+        p-1 rounded-full bg-gray-800 dark:border dark:border-gray-500
+      "
+      data-a2a-icon-color="transparent"
+    >
+      <a class="a2a_button_copy_link"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    </div>
+    <script async src="https://static.addtoany.com/menu/page.js"></script>
+  </div>
+
   <div class="w-full max-w-4xl px-4">
     <script src="https://giscus.app/client.js"
       data-repo="NNBnh/evilgrams"
@@ -33,7 +66,7 @@ permalink: "puzzle/{{ puzzle.id | slug }}/"
 <script src="https://handsomeone.github.io/Nonogram/nonogram.min.js"></script>
 
 <script>
-  const image = "{{ puzzle.image }}".split('.');
+  const image = '{{ puzzle.image }}'.split('.');
 
   const width  = parseInt(image[0].split('x')[0]);
   const height = parseInt(image[0].split('x')[1]);
@@ -69,6 +102,11 @@ permalink: "puzzle/{{ puzzle.id | slug }}/"
   new nonogram.Game(
     clueGenerate(data),
     clueGenerate(data[0].map((_, colIndex) => data.map(row => row[colIndex]))),
-    'game'
+    'game',
+    {
+      theme: {
+        meshColor: '#555555',
+      },
+    },
   );
 </script>
