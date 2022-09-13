@@ -17,6 +17,6 @@ module.exports = (eleventyConfig) => {
       input: 'src',
       output: 'docs',
     },
-    pathPrefix: "/libregrams/",
+    pathPrefix: "/evilgrams/",
   };
 };

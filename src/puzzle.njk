@@ -1,6 +1,74 @@
 ---
 layout: layouts/default.njk
 title: Puzzles
+pagination:
+  data: puzzles
+  size: 1
+  alias: puzzle
+permalink: "puzzle/{{ puzzle.id | slug }}/"
 ---
 
-#TODO
+<div class="flex flex-col items-center py-8 gap-8">
+  <canvas id="game" class="w-full"></canvas>
+  <div class="w-full max-w-4xl px-4">
+    <script src="https://giscus.app/client.js"
+      data-repo="NNBnh/evilgrams"
+      data-repo-id="R_kgDOH3aVHA"
+      data-category="Puzzles"
+      data-category-id="DIC_kwDOH3aVHM4CRZtJ"
+      data-mapping="title"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="preferred_color_scheme"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async
+    ></script>
+  </div>
+</div>
+
+<script src="https://handsomeone.github.io/Nonogram/nonogram.min.js"></script>
+
+<script>
+  const image = "{{ puzzle.image }}".split('.');
+
+  const width  = parseInt(image[0].split('x')[0]);
+  const height = parseInt(image[0].split('x')[1]);
+
+  const dataPrepare = image[1].split('').map(char => {
+    return "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"
+    .indexOf(char).toString(2).padStart(6, '0');
+  }).join('').split('');
+  const data = Array.from({length: height}, () => dataPrepare.splice(0, width));
+
+  function clueGenerate(data) {
+    return data.map(line => {
+      let clues = [];
+      let clue = 0;
+
+      line.forEach(cell => {
+        if(cell === '1') {
+          clue++;
+        } else {
+          clues.push(clue);
+          clue = 0;
+        }
+      });
+
+      if(clue !== 0) {
+        clues.push(clue)
+      }
+
+      return clues;
+    });
+  }
+
+  new nonogram.Game(
+    clueGenerate(data),
+    clueGenerate(data[0].map((_, colIndex) => data.map(row => row[colIndex]))),
+    'game'
+  );
+</script>

@@ -34,15 +34,6 @@ class Nonogram
 
     [clue_lines, clue_column]
   end
-
-  def answer
-    @data.map do |line|
-      line.chars
-      .map { _1 == '1' ? '██' : '  ' }
-      .join
-    end
-    .join("\n")
-  end
 end
 
 class String
