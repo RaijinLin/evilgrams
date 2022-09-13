@@ -10,7 +10,7 @@ permalink: "puzzle/{{ puzzle.id | slug }}/"
 
 <div class="w-full p-4 flex items-center gap-4">
   <div
-    class="btn btn-sm btn-outline btn-disabled font-mono lowercase"
+    class="btn btn-sm btn-outline font-mono lowercase"
     x-data="{ size: '{{ puzzle.image }}'.split('.')[0] }"
     x-text="size"
   >??x??</div>
