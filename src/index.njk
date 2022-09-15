@@ -135,7 +135,7 @@ title: Home
               <td>Dif</td>
               <td>Pic</td>
               <td>Size</td>
-              <td>Name</td>
+              <td>Title</td>
               <td>Author</td>
               <td>Date</td>
             </tr>
@@ -150,11 +150,16 @@ title: Home
                 <td>
                   <a
                     class="link"
-                    x-text="puzzle.title"
+                    x-text="settings.showTitle ? puzzle.title : '?????'"
                     :href="'{{ '/puzzle' | url }}/' + puzzle.id"
                   ></a>
                 </td>
-                <td x-text="puzzle.author"></td>
+                <td>
+                  <a
+                    x-text="puzzle.author"
+                    :href="'https://github.com/' + puzzle.author"
+                  ></a>
+                </td>
                 <td x-text="puzzle.date"></td>
               </tr>
             </template>

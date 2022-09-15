@@ -1,5 +1,28 @@
+---
+themes: ["System", "Light", "Dark", "Cupcake", "Bumblebee", "Emerald", "Corporate", "Synthwave", "Retro", "Cyberpunk", "Valentine", "Halloween", "Garden", "Forest", "Aqua", "Lofi", "Pastel", "Fantasy", "Wireframe", "Black", "Luxury", "Dracula", "Cmyk", "Autumn", "Business", "Acid", "Lemonade", "Night", "Coffee", "Winter"]
+---
+
+{# #TODO account #}
 <!doctype html>
-<html lang="en">
+<html
+  lang="en"
+  x-data="
+    {
+      settings: {
+        showTitle: false,
+        theme: 'System',
+      },
+      solvedPuzzles: [],
+      resetSettings() {
+        this.settings = {
+          showTitle: false,
+          theme: 'System',
+        };
+      },
+    }
+  "
+  :data-theme="settings.theme === 'system' ? '' : settings.theme.toLowerCase()"
+>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +61,6 @@
             <li><a>Profile</a></li>
             <li><label for="settings-modal">Settings</label></li>
             <li><a>Logout</a></li>
-            {# #TODO #}
           </ul>
         </div>
       </div>
@@ -48,18 +70,34 @@
       <div class="w-full flex justify-center items-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 24 24" width="24" fill="currentColor"><path d="M4,2 L2,2 L2,4 L4,4 L4,2 Z M6,2 L6,4 L8,4 L8,2 L10,2 L10,4 L12,4 L12,2 L6,2 Z M12,6 L6,6 L6,12 L12,12 L12,6 Z M4,12 L4,10 L2,10 L2,12 L4,12 Z M2,8 L4,8 L4,6 L2,6 L2,8 Z M2,0 L12,0 C13.1045695,0 14,0.8954305 14,2 L14,12 C14,13.1045695 13.1045695,14 12,14 L2,14 C0.8954305,14 0,13.1045695 0,12 L0,2 C0,0.8954305 0.8954305,0 2,0 Z"></path></svg>
         <spam>Evilgrams &#169;</spam>
-        |
-        <a class="link" href="https://github.com/NNBnh/evilgrams">Source code</a>
+        | <a class="link" href="https://github.com/NNBnh/evilgrams">Source code</a>
+        | <a class="link" href="https://github.com/NNBnh/evilgrams/issues">Open issue</a>
       </div>
     </footer>
   </body>
   <input type="checkbox" id="settings-modal" class="modal-toggle" />
   <label class="modal cursor-pointer" for="settings-modal">
     <label class="modal-box relative" for="">
-      <h3 class="mb-4 text-center font-bold text-lg">Setting</h3>
-      {# #TODO #}
+      <div class="form-control gap-4">
+        <h3 class="text-center font-bold text-lg">Settings</h3>
+        <label class="label cursor-pointer">
+          <span class="label-text">Show title</span>
+          <input type="checkbox" class="toggle" x-model="settings.showTitle" />
+        </label>
+        <div class="flex flex-col gap-1">
+          <label class="label-text block">Theme:</label>
+          <select class="select select-bordered w-full" x-model="settings.theme">
+            <template x-for="theme in {{ themes | dump }}">
+              <option x-text="theme"></option>
+            </template>
+          </select>
+        </div>
+      </div>
       <div class="modal-action">
-        <button class="btn">Reset Settings</button>
+        <button
+          class="btn"
+          @click="resetSettings()"
+        >Reset Settings</button>
       </div>
     </label>
   </label>

@@ -9,8 +9,4 @@ module.exports = {
       ...defaultTheme.screens,
     },
   },
-  daisyui: {
-    themes: ['winter', 'night'],
-    darkTheme: 'night',
-  },
 };
