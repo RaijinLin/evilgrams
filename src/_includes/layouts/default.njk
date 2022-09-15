@@ -2,26 +2,21 @@
 themes: ["System", "Light", "Dark", "Cupcake", "Bumblebee", "Emerald", "Corporate", "Synthwave", "Retro", "Cyberpunk", "Valentine", "Halloween", "Garden", "Forest", "Aqua", "Lofi", "Pastel", "Fantasy", "Wireframe", "Black", "Luxury", "Dracula", "Cmyk", "Autumn", "Business", "Acid", "Lemonade", "Night", "Coffee", "Winter"]
 ---
 
-{# #TODO account #}
 <!doctype html>
 <html
   lang="en"
   x-data="
     {
-      settings: {
-        showTitle: false,
-        theme: 'System',
-      },
-      solvedPuzzles: [],
+      showTitle: $persist(false),
+      themeCurrent: $persist('System'),
+      puzzlesSolved: $persist([]),
       resetSettings() {
-        this.settings = {
-          showTitle: false,
-          theme: 'System',
-        };
+        this.showTitle = false;
+        this.themeCurrent = 'System';
       },
     }
   "
-  :data-theme="settings.theme === 'system' ? '' : settings.theme.toLowerCase()"
+  :data-theme="themeCurrent === 'system' ? '' : themeCurrent.toLowerCase()"
 >
   <head>
     <meta charset="utf-8">
@@ -32,9 +27,10 @@ themes: ["System", "Light", "Dark", "Cupcake", "Bumblebee", "Emerald", "Corporat
     {% endset %}
   	<link rel="icon" href="https://raw.githubusercontent.com/michaelampr/jam/master/icons/table-cell-merge.svg" type="image/svg+xml">
     <style>{{ css | postcss | safe }}</style>
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
   </head>
-  <body>
+  <body x-cloak>
     <div class="navbar px-4 bg-base-300">
       <div class="flex-1 font-bold breadcrumbs">
         <ul>
@@ -82,11 +78,11 @@ themes: ["System", "Light", "Dark", "Cupcake", "Bumblebee", "Emerald", "Corporat
         <h3 class="text-center font-bold text-lg">Settings</h3>
         <label class="label cursor-pointer">
           <span class="label-text">Show title</span>
-          <input type="checkbox" class="toggle" x-model="settings.showTitle" />
+          <input type="checkbox" class="toggle" x-model="showTitle" />
         </label>
         <div class="flex flex-col gap-1">
           <label class="label-text block">Theme:</label>
-          <select class="select select-bordered w-full" x-model="settings.theme">
+          <select class="select select-bordered w-full" x-model="themeCurrent">
             <template x-for="theme in {{ themes | dump }}">
               <option x-text="theme"></option>
             </template>

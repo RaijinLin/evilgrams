@@ -14,8 +14,8 @@ permalink: "puzzle/{{ puzzle.id | slug }}/"
     <h3 class="mb-4 text-center font-bold text-lg">Puzzle's information</h3>
     <ol class="list-inside list-disc font-mono">
       <li>Title:
-        <span x-show="settings.showTitle">{{ puzzle.title }}</span>
-        <button class="group" x-show="!settings.showTitle">
+        <span x-show="showTitle">{{ puzzle.title }}</span>
+        <button class="group" x-show="!showTitle">
           <span class="hidden group-focus:inline">{{ puzzle.title }}</span>
           <span class="inline group-focus:hidden italic">(Show title)</span>
         </button>
@@ -79,8 +79,13 @@ permalink: "puzzle/{{ puzzle.id | slug }}/"
     let stopwatch = setInterval(
       () => {
         stopwatchCurrent = Date.now();
-        titleReveal = solved;
-        if(solved) { clearInterval(stopwatch) }
+        if(solved) {
+          titleReveal = true;
+          if(!puzzlesSolved.includes({{ puzzle.id }})) {
+            puzzlesSolved.push({{ puzzle.id }});
+          }
+          clearInterval(stopwatch);
+        }
       },
       100
     );
@@ -93,7 +98,7 @@ permalink: "puzzle/{{ puzzle.id | slug }}/"
     for="info-modal"
   >??x??</label>
   <div class="grow text-center xs:text-2xl font-bold truncate">
-    <span x-show="settings.showTitle || titleReveal">{{ puzzle.title }}</span>
+    <span x-show="showTitle || titleReveal">{{ puzzle.title }}</span>
   </div>
   <button
     class="btn btn-sm btn-info no-animation font-mono"

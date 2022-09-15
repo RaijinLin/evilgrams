@@ -142,7 +142,7 @@ title: Home
           </thead>
           <tbody>
             <template x-for="(puzzle, id) in puzzlesShowed" :key="puzzle.id">
-              <tr>
+              <tr :class="puzzlesSolved.includes(puzzle.id) ? 'active' : ''">
                 <td x-text="puzzle.id"></td>
                 <td>2.5</td>
                 <td>2.5</td>
@@ -150,7 +150,7 @@ title: Home
                 <td>
                   <a
                     class="link"
-                    x-text="settings.showTitle ? puzzle.title : '?????'"
+                    x-text="showTitle ? puzzle.title : '?????'"
                     :href="'{{ '/puzzle' | url }}/' + puzzle.id"
                   ></a>
                 </td>

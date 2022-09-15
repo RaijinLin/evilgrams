@@ -17,7 +17,7 @@ class Nonogram
     .chars.each_slice(6).map(&:join)
     .map { _1.to_i(2) }
     .map { base64[_1] }
-    .join.then { "#{@width}.#{@height}.#{_1}" }
+    .join.then { "#{@width}x#{@height}.#{_1}" }
   end
 
   def puzzle
@@ -40,7 +40,8 @@ class String
   def to_nonogram
     base64 = [*'0'..'9', *'a'..'z', *'A'..'Z', '-', '_']
 
-    width, height, data = self.split('.')
+    size, data = self.split('.')
+    width, height = size.split('x')
     data.chars
     .map { base64.index(_1) }
     .map { _1.to_s(2).rjust(6, '0') }
@@ -56,5 +57,4 @@ nonogram = Nonogram.new(%w[
 ])
 
 p (p nonogram.to_s).to_nonogram
-puts nonogram.answer
 p nonogram.puzzle
