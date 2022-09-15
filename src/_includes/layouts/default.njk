@@ -12,7 +12,7 @@
     <script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
   </head>
   <body>
-    <div class="navbar px-4 bg-base-200">
+    <div class="navbar px-4 bg-base-300">
       <div class="flex-1 font-bold breadcrumbs">
         <ul>
           <li><a href="{{ '/' | url }}">
@@ -36,9 +36,9 @@
           </label>
           <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-300 rounded-box w-52">
             <li><a>Profile</a></li>
-            <li><a>Achievements</a></li>
-            <li><a>Settings</a></li>
+            <li><label for="settings-modal">Settings</label></li>
             <li><a>Logout</a></li>
+            {# #TODO #}
           </ul>
         </div>
       </div>
@@ -53,4 +53,14 @@
       </div>
     </footer>
   </body>
+  <input type="checkbox" id="settings-modal" class="modal-toggle" />
+  <label class="modal cursor-pointer" for="settings-modal">
+    <label class="modal-box relative" for="">
+      <h3 class="mb-4 text-center font-bold text-lg">Setting</h3>
+      {# #TODO #}
+      <div class="modal-action">
+        <button class="btn">Reset Settings</button>
+      </div>
+    </label>
+  </label>
 </html>

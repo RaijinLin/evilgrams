@@ -8,26 +8,90 @@ pagination:
 permalink: "puzzle/{{ puzzle.id | slug }}/"
 ---
 
+<input type="checkbox" id="info-modal" class="modal-toggle" />
+<label class="modal cursor-pointer" for="info-modal">
+  <label class="modal-box relative" for="">
+    <h3 class="mb-4 text-center font-bold text-lg">Puzzle's information</h3>
+    <ol class="list-inside list-disc font-mono">
+      <li>Title: {{ puzzle.title }}</li>
+      <li>Date: {{ puzzle.date }}</li>
+      <li>Author:
+        <a
+          class="link"
+          href="https://github.com/{{ puzzle.author }}"
+        >{{ puzzle.author }}</a>
+      </li>
+      <li>Difficulty:
+        <div class="rating rating-xs gap-1">
+          <input type="radio" class="mask mask-star-2" />
+          <input type="radio" class="mask mask-star-2" />
+          <input type="radio" class="mask mask-star-2" checked />
+          <input type="radio" class="mask mask-star-2" />
+          <input type="radio" class="mask mask-star-2" />
+        </div>
+      </li>
+      <li>Picture:
+        <div class="rating rating-xs gap-1">
+          <input type="radio" class="mask mask-star-2" />
+          <input type="radio" class="mask mask-star-2" />
+          <input type="radio" class="mask mask-star-2" checked />
+          <input type="radio" class="mask mask-star-2" />
+          <input type="radio" class="mask mask-star-2" />
+        </div>
+      </li>
+    </ol>
+    <div class="modal-action">
+      <a class="btn" href="https://github.com/NNBnh/evilgrams/issues/new">Open issue</a>
+      {# #TODO #}
+    </div>
+  </label>
+</label>
+
+<input type="checkbox" id="solver-modal" class="modal-toggle" />
+<label class="modal cursor-pointer" for="solver-modal">
+  <label class="modal-box relative" for="">
+    <h3 class="mb-4 text-center font-bold text-lg">Nonogram solver</h3>
+    <canvas id="solver" class="w-full"></canvas>
+  </label>
+</label>
+
+
 <div class="w-full p-4 flex items-center gap-4">
-  <div
+  <label
     class="btn btn-sm btn-outline font-mono lowercase"
-    x-data="{ size: '{{ puzzle.image }}'.split('.')[0] }"
+    x-data="
+      {
+        size: '{{ puzzle.image }}'.split('.')[0],
+        stopwatchStart: null,
+        stopwatchCurrent: null,
+        stopwatchStop: null,
+        stopwatchInterval: null,
+      }
+    "
     x-text="size"
-  >??x??</div>
+    for="info-modal"
+  >??x??</label>
   <div class="grow text-center xs:text-2xl font-bold truncate">{{ puzzle.title }}</div>
   <button
     class="btn btn-sm btn-secondary font-mono"
-    x-text="00:00"
+    x-text="(stopwatchCurrent - stopwatchStart) / 1000"
+    @click="
+      stopwatchStart = Date.now();
+      stopwatchCurrent = stopwatchStart;
+      stopwatchInterval = setInterval(() => { stopwatchCurrent = Date.now() }, 100);
+      console.log(stopwatchStart);
+    "
   >00:00</button>
+  {# #TODO #}
 </div>
 
 <div class="flex flex-col items-center pb-8 gap-8">
   <canvas id="game" class="w-full"></canvas>
 
   <div class="flex gap-2">
-    <button class="btn btn-sm btn-circle btn-accent">
+    <label class="btn btn-sm btn-circle btn-accent" for="solver-modal">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -6 24 24" width="24" fill="currentColor"><path d="M10 12c-5.042.007-10-2.686-10-6S4.984-.017 10 0c5.016.017 10 2.686 10 6s-4.958 5.993-10 6zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path></svg>
-    </button>
+    </label>
     <div
       class="
         a2a_kit a2a_kit_size_24 a2a_default_style
@@ -55,8 +119,6 @@ permalink: "puzzle/{{ puzzle.id | slug }}/"
       data-emit-metadata="0"
       data-input-position="top"
       data-theme="preferred_color_scheme"
-      data-lang="en"
-      data-loading="lazy"
       crossorigin="anonymous"
       async
     ></script>
@@ -66,6 +128,20 @@ permalink: "puzzle/{{ puzzle.id | slug }}/"
 <script src="https://handsomeone.github.io/Nonogram/nonogram.min.js"></script>
 
 <script>
+  const colors = {
+    primary:   '#09A8EC',
+    secondary: '#777777',
+  };
+
+  const nonogramTheme = {
+    filledColor:  colors.primary,
+    unsetColor:   colors.secondary,
+    correctColor: colors.primary,
+    wrongColor:   colors.secondary,
+    meshColor:    colors.secondary,
+    isMeshOnTop:  true,
+  };
+
   const image = '{{ puzzle.image }}'.split('.');
 
   const width  = parseInt(image[0].split('x')[0]);
@@ -104,9 +180,16 @@ permalink: "puzzle/{{ puzzle.id | slug }}/"
     clueGenerate(data[0].map((_, colIndex) => data.map(row => row[colIndex]))),
     'game',
     {
-      theme: {
-        meshColor: '#555555',
-      },
+      theme: nonogramTheme,
+    },
+  );
+
+  new nonogram.Solver(
+    clueGenerate(data),
+    clueGenerate(data[0].map((_, colIndex) => data.map(row => row[colIndex]))),
+    'solver',
+    {
+      theme: nonogramTheme,
     },
   );
 </script>

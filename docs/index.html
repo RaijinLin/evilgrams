@@ -592,40 +592,6 @@ html {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
-.alert {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
-  padding: 1rem;
-  border-radius: var(--rounded-box, 1rem);
-}
-.alert > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
-}
-@media (min-width: 768px) {
-
-  .alert {
-    flex-direction: row;
-  }
-
-  .alert > :not([hidden]) ~ :not([hidden]) {
-    --tw-space-y-reverse: 0;
-    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
-    margin-bottom: calc(0px * var(--tw-space-y-reverse));
-  }
-}
-.alert > :where(*) {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
 .avatar {
   position: relative;
   display: inline-flex;
@@ -976,6 +942,14 @@ html {
   -webkit-text-decoration-line: underline;
   text-decoration-line: underline;
 }
+.mask {
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
 .menu {
   display: flex;
   flex-direction: column;
@@ -1122,6 +1096,33 @@ html {
 :where(.navbar > *) {
   display: inline-flex;
   align-items: center;
+}
+.radio {
+  --chkbg: var(--bc);
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  border-radius: 9999px;
+  border-width: 1px;
+  border-color: hsl(var(--bc) / var(--tw-border-opacity));
+  --tw-border-opacity: 0.2;
+  transition: background, box-shadow var(--animation-input, 0.2s) ease-in-out;
+}
+.rating {
+  position: relative;
+  display: inline-flex;
+}
+.rating :where(input) {
+  cursor: pointer;
+  -webkit-animation: rating-pop var(--animation-input, 0.25s) ease-out;
+          animation: rating-pop var(--animation-input, 0.25s) ease-out;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: hsl(var(--bc) / var(--tw-bg-opacity));
+  --tw-bg-opacity: 1;
 }
 .tabs {
   display: flex;
@@ -1377,57 +1378,6 @@ html {
 .btn-accent:focus-visible {
   outline: 2px solid hsl(var(--a));
 }
-.btn-info {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--in) / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--in) / var(--tw-bg-opacity));
-  --tw-text-opacity: 1;
-  color: hsl(var(--inc, var(--nc)) / var(--tw-text-opacity));
-}
-.btn-info:hover, .btn-info.btn-active {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--in) / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--in) / var(--tw-bg-opacity));
-}
-.btn-info:focus-visible {
-  outline: 2px solid hsl(var(--in));
-}
-.btn-success {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--su) / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--su) / var(--tw-bg-opacity));
-  --tw-text-opacity: 1;
-  color: hsl(var(--suc, var(--nc)) / var(--tw-text-opacity));
-}
-.btn-success:hover, .btn-success.btn-active {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--su) / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--su) / var(--tw-bg-opacity));
-}
-.btn-success:focus-visible {
-  outline: 2px solid hsl(var(--su));
-}
-.btn-warning {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--wa) / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--wa) / var(--tw-bg-opacity));
-  --tw-text-opacity: 1;
-  color: hsl(var(--wac, var(--nc)) / var(--tw-text-opacity));
-}
-.btn-warning:hover, .btn-warning.btn-active {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--wa) / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--wa) / var(--tw-bg-opacity));
-}
-.btn-warning:focus-visible {
-  outline: 2px solid hsl(var(--wa));
-}
 .btn.glass:hover,
     .btn.glass.btn-active {
   --glass-opacity: 25%;
@@ -1679,15 +1629,6 @@ body[dir="rtl"] .checkbox:checked,
 .drawer-toggle:focus-visible ~ .drawer-content .drawer-button.btn-accent {
   outline: 2px solid hsl(var(--a));
 }
-.drawer-toggle:focus-visible ~ .drawer-content .drawer-button.btn-info {
-  outline: 2px solid hsl(var(--in));
-}
-.drawer-toggle:focus-visible ~ .drawer-content .drawer-button.btn-success {
-  outline: 2px solid hsl(var(--su));
-}
-.drawer-toggle:focus-visible ~ .drawer-content .drawer-button.btn-warning {
-  outline: 2px solid hsl(var(--wa));
-}
 .drawer-toggle:focus-visible ~ .drawer-content .drawer-button.btn-ghost {
   outline: 2px solid currentColor;
 }
@@ -1737,6 +1678,10 @@ body[dir="rtl"] .checkbox:checked,
 .link:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
+}
+.mask-star-2 {
+  -webkit-mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTkycHgiIGhlaWdodD0iMTgwcHgiIHZpZXdCb3g9IjAgMCAxOTIgMTgwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA2MC4xICg4ODEzMykgLSBodHRwczovL3NrZXRjaC5jb20gLS0+CiAgICA8dGl0bGU+c3Rhci0yPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBvbHlnb24gaWQ9InN0YXItMiIgZmlsbD0iIzAwMDAwMCIgcG9pbnRzPSI5NiAxNTMuMDQzNjYxIDM3LjIyMTQ3NDggMTc5LjI4NjUwNiA0NC4yNDExOTA0IDExNS43NzQ0NDQgMC44OTQzNDgzNyA2OC40ODEzNTE1IDY0LjAxMTI5NjUgNTUuNDcxNTgyOCA5NiAwIDEyNy45ODg3MDQgNTUuNDcxNTgyOCAxOTEuMTA1NjUyIDY4LjQ4MTM1MTUgMTQ3Ljc1ODgxIDExNS43NzQ0NDQgMTU0Ljc3ODUyNSAxNzkuMjg2NTA2Ij48L3BvbHlnb24+CiAgICA8L2c+Cjwvc3ZnPg==);
+  mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTkycHgiIGhlaWdodD0iMTgwcHgiIHZpZXdCb3g9IjAgMCAxOTIgMTgwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA2MC4xICg4ODEzMykgLSBodHRwczovL3NrZXRjaC5jb20gLS0+CiAgICA8dGl0bGU+c3Rhci0yPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBvbHlnb24gaWQ9InN0YXItMiIgZmlsbD0iIzAwMDAwMCIgcG9pbnRzPSI5NiAxNTMuMDQzNjYxIDM3LjIyMTQ3NDggMTc5LjI4NjUwNiA0NC4yNDExOTA0IDExNS43NzQ0NDQgMC44OTQzNDgzNyA2OC40ODEzNTE1IDY0LjAxMTI5NjUgNTUuNDcxNTgyOCA5NiAwIDEyNy45ODg3MDQgNTUuNDcxNTgyOCAxOTEuMTA1NjUyIDY4LjQ4MTM1MTUgMTQ3Ljc1ODgxIDExNS43NzQ0NDQgMTU0Ljc3ODUyNSAxNzkuMjg2NTA2Ij48L3BvbHlnb24+CiAgICA8L2c+Cjwvc3ZnPg==);
 }
 .menu.horizontal li.bordered > a, .menu.horizontal li.bordered > button, .menu.horizontal li.bordered > span {
   border-left-width: 0px;
@@ -1892,6 +1837,21 @@ body[dir="rtl"] .checkbox:checked,
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
+.radio:focus-visible {
+  outline: 2px solid hsl(var(--bc));
+  outline-offset: 2px;
+}
+.radio:checked {
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--bc) / var(--tw-bg-opacity));
+  -webkit-animation: radiomark var(--animation-input, 0.2s) ease-in-out;
+          animation: radiomark var(--animation-input, 0.2s) ease-in-out;
+  box-shadow: 0 0 0 4px hsl(var(--b1)) inset, 0 0 0 4px hsl(var(--b1)) inset;
+}
+.radio:disabled {
+  cursor: not-allowed;
+  opacity: 0.2;
+}
 @-webkit-keyframes radiomark {
 
   0% {
@@ -1919,6 +1879,29 @@ body[dir="rtl"] .checkbox:checked,
   100% {
     box-shadow: 0 0 0 4px hsl(var(--b1)) inset, 0 0 0 4px hsl(var(--b1)) inset;
   }
+}
+.rating input {
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+}
+.rating .rating-hidden {
+  width: 0.5rem;
+  background-color: transparent;
+}
+.rating input:checked ~ input {
+  --tw-bg-opacity: 0.2;
+}
+.rating input:focus-visible {
+  transition-property: transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(-0.125em);
+}
+.rating input:active:focus {
+  -webkit-animation: none;
+          animation: none;
+  transform: translateY(-0.125em);
 }
 @-webkit-keyframes rating-pop {
 
@@ -2129,6 +2112,13 @@ body[dir="rtl"] .checkbox:checked,
   border-radius: 9999px;
   padding: 0px;
 }
+.rating-xs input {
+  height: 0.75rem;
+  width: 0.75rem;
+}
+.rating-half.rating-xs input:not(.rating-hidden) {
+  width: 0.375rem;
+}
 .tab-xs {
   height: 1.25rem;
   font-size: 0.75rem;
@@ -2174,6 +2164,9 @@ body[dir="rtl"] .checkbox:checked,
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+.relative {
+  position: relative;
+}
 .my-16 {
   margin-top: 4rem;
   margin-bottom: 4rem;
@@ -2184,14 +2177,11 @@ body[dir="rtl"] .checkbox:checked,
 .mt-8 {
   margin-top: 2rem;
 }
+.mb-4 {
+  margin-bottom: 1rem;
+}
 .mt-3 {
   margin-top: 0.75rem;
-}
-.block {
-  display: block;
-}
-.inline {
-  display: inline;
 }
 .flex {
   display: flex;
@@ -2223,8 +2213,11 @@ body[dir="rtl"] .checkbox:checked,
 .max-w-xs {
   max-width: 20rem;
 }
-.max-w-3xl {
-  max-width: 48rem;
+.max-w-6xl {
+  max-width: 72rem;
+}
+.max-w-5xl {
+  max-width: 64rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -2235,44 +2228,26 @@ body[dir="rtl"] .checkbox:checked,
 .grow {
   flex-grow: 1;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
+.list-inside {
+  list-style-position: inside;
+}
+.list-disc {
+  list-style-type: disc;
+}
 .flex-row {
   flex-direction: row;
 }
 .flex-col {
   flex-direction: column;
 }
-.place-content-between {
-  place-content: space-between;
-}
-.place-content-around {
-  place-content: space-around;
-}
-.place-content-stretch {
-  place-content: stretch;
-}
-.place-items-stretch {
-  place-items: stretch;
-}
-.content-between {
-  align-content: space-between;
-}
-.content-around {
-  align-content: space-around;
-}
-.content-evenly {
-  align-content: space-evenly;
-}
 .items-center {
   align-items: center;
 }
-.items-stretch {
-  align-items: stretch;
-}
 .justify-center {
   justify-content: center;
-}
-.justify-items-stretch {
-  justify-items: stretch;
 }
 .gap-4 {
   gap: 1rem;
@@ -2280,11 +2255,11 @@ body[dir="rtl"] .checkbox:checked,
 .gap-2 {
   gap: 0.5rem;
 }
+.gap-1 {
+  gap: 0.25rem;
+}
 .gap-8 {
   gap: 2rem;
-}
-.place-self-stretch {
-  place-self: stretch;
 }
 .overflow-hidden {
   overflow: hidden;
@@ -2306,17 +2281,6 @@ body[dir="rtl"] .checkbox:checked,
 .rounded-full {
   border-radius: 9999px;
 }
-.border {
-  border-width: 1px;
-}
-.border-white {
-  --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
-.border-slate-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(100 116 139 / var(--tw-border-opacity));
-}
 .bg-base-100 {
   --tw-bg-opacity: 1;
   background-color: hsl(var(--b1) / var(--tw-bg-opacity));
@@ -2329,61 +2293,43 @@ body[dir="rtl"] .checkbox:checked,
   --tw-bg-opacity: 1;
   background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
 }
-.bg-base-300 {
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--b3, var(--b2)) / var(--tw-bg-opacity));
-}
-.bg-gray-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-}
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-.bg-slate-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
-}
-.bg-primary {
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--p) / var(--tw-bg-opacity));
-}
-.bg-primary-focus {
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));
-}
 .bg-gray-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
+.bg-base-300 {
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--b3, var(--b2)) / var(--tw-bg-opacity));
+}
 .bg-opacity-60 {
   --tw-bg-opacity: 0.6;
+}
+.bg-opacity-80 {
+  --tw-bg-opacity: 0.8;
+}
+.bg-opacity-90 {
+  --tw-bg-opacity: 0.9;
 }
 .bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1656296506976-81e916ca9d74\?ixlib\=rb-1\.2\.1\&ixid\=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8\&auto\=format\&fit\=crop\&w\=774\&q\=80\'\)\] {
   background-image: url('https://images.unsplash.com/photo-1656296506976-81e916ca9d74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80');
 }
-.bg-gradient-to-b {
-  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+.bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1584265979678-529a190470d3\?ixlib\=rb-1\.2\.1\&ixid\=MnwxMjA3fDB8MHxzZWFyY2h8OTd8fHZpZXRuYW18ZW58MHx8MHxibHVlfA\%3D\%3D\'\)\] {
+  background-image: url('https://images.unsplash.com/photo-1584265979678-529a190470d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTd8fHZpZXRuYW18ZW58MHx8MHxibHVlfA%3D%3D');
 }
-.from-blue-500 {
-  --tw-gradient-from: #3b82f6;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(59 130 246 / 0));
-}
-.to-blue-300 {
-  --tw-gradient-to: #93c5fd;
+.bg-cover {
+  background-size: cover;
 }
 .bg-fixed {
   background-attachment: fixed;
-}
-.p-2 {
-  padding: 0.5rem;
 }
 .p-4 {
   padding: 1rem;
 }
 .p-1 {
   padding: 0.25rem;
+}
+.p-2 {
+  padding: 0.5rem;
 }
 .py-6 {
   padding-top: 1.5rem;
@@ -2393,17 +2339,9 @@ body[dir="rtl"] .checkbox:checked,
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
-}
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 .pb-8 {
   padding-bottom: 2rem;
@@ -2424,14 +2362,6 @@ body[dir="rtl"] .checkbox:checked,
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
-}
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 .font-bold {
   font-weight: 700;
@@ -2456,11 +2386,25 @@ body[dir="rtl"] .checkbox:checked,
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.drop-shadow {
+  --tw-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .backdrop-blur-md {
   --tw-backdrop-blur: blur(12px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-lg {
+  --tw-backdrop-blur: blur(16px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-3xl {
+  --tw-backdrop-blur: blur(64px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
@@ -2484,20 +2428,6 @@ body[dir="rtl"] .checkbox:checked,
   .dark\:border-gray-500 {
     --tw-border-opacity: 1;
     border-color: rgb(107 114 128 / var(--tw-border-opacity));
-  }
-
-  .dark\:bg-primary-focus {
-    --tw-bg-opacity: 1;
-    background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));
-  }
-
-  .dark\:from-blue-900 {
-    --tw-gradient-from: #1e3a8a;
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(30 58 138 / 0));
-  }
-
-  .dark\:to-slate-900 {
-    --tw-gradient-to: #0f172a;
   }
 }
 @media (min-width: 475px) {
@@ -2528,16 +2458,8 @@ body[dir="rtl"] .checkbox:checked,
 }
 @media (min-width: 640px) {
 
-  .sm\:block {
-    display: block;
-  }
-
   .sm\:inline {
     display: inline;
-  }
-
-  .sm\:hidden {
-    display: none;
   }
 }
 @media (min-width: 768px) {
@@ -2565,7 +2487,7 @@ body[dir="rtl"] .checkbox:checked,
     <script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
   </head>
   <body>
-    <div class="navbar px-4 bg-base-200">
+    <div class="navbar px-4 bg-base-300">
       <div class="flex-1 font-bold breadcrumbs">
         <ul>
           <li><a href="/evilgrams/">
@@ -2584,28 +2506,25 @@ body[dir="rtl"] .checkbox:checked,
           </label>
           <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-300 rounded-box w-52">
             <li><a>Profile</a></li>
-            <li><a>Achievements</a></li>
-            <li><a>Settings</a></li>
+            <li><label for="settings-modal">Settings</label></li>
             <li><a>Logout</a></li>
+            
           </ul>
         </div>
       </div>
     </div>
     
-<div
-  class="
-    hero bg-base-100
-    bg-[url('https://images.unsplash.com/photo-1656296506976-81e916ca9d74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80')]
-  "
->
-  <div class="hero-overlay bg-base-100 bg-opacity-60 backdrop-blur-md"></div>
-  <div class="hero-content my-16 flex-col md:flex-row-reverse max-w-4xl lg:gap-8">
+<div class="hero">
+  <div class="hero-overlay bg-base-100"></div>
+  <div class="hero-content my-16 flex-col md:flex-row-reverse max-w-5xl lg:gap-8">
     <img
       src="https://upload.wikimedia.org/wikipedia/commons/6/64/Paint_by_numbers_Animation.gif"
       class="max-w-xs rounded-lg shadow-2xl bg-slate-300"
     />
     <div class="flex flex-col items-center md:items-start">
-      <h1 class="text-4xl xs:text-5xl text-center font-bold">It's big brain time!</h1>
+      <h1 class="text-4xl xs:text-5xl text-center font-bold">
+        It's big brain time!
+      </h1>
       <p class="py-6 text-justify">
         Nonograms are picture logic puzzles in which cells in a grid must be
         colored or left blank according to numbers at the side of the grid to
@@ -2614,9 +2533,9 @@ body[dir="rtl"] .checkbox:checked,
         of filled-in squares there are in any given row or column.
       </p>
       <div class="form-control flex flex-row gap-4">
-        <a class="btn btn-primary" href="#puzzles">Play</a>
+        <a class="btn btn-primary"   href="#puzzles">Play</a>
         <a class="btn btn-secondary" href="/evilgrams/tutorial">Tutorial</a>
-        <a class="btn btn-accent" href="/evilgrams/about">About</a>
+        <a class="btn btn-accent"    href="/evilgrams/about">About</a>
       </div>
     </div>
   </div>
@@ -2625,124 +2544,140 @@ body[dir="rtl"] .checkbox:checked,
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
 <div
-  id="puzzles"
   class="
-    flex flex-col items-center bg-fixed bg-gradient-to-b
-    from-blue-500 to-blue-300
-    dark:from-blue-900 dark:to-slate-900
-  "
-  x-data="{
-    puzzlesAll: [{&quot;id&quot;:50,&quot;title&quot;:&quot;Truck&quot;,&quot;image&quot;:&quot;44x24.000M000000c___U0f_v___07_T___M3U____Y0Sf____09z____w2o____MvCfv__VfVDT__YT__Z__-t___v__ev__P__Df__Y003P______U______-e3__Y703vv_--LwLX__vTYfL___tT3NLY1zoMeX_0tTs3-007Z_0v000-fw&quot;},{&quot;id&quot;:49,&quot;title&quot;:&quot;Trebleclef&quot;,&quot;image&quot;:&quot;9x20.20o3ws2wk2woe3gPCSSujOrmfwg20M&quot;},{&quot;id&quot;:48,&quot;title&quot;:&quot;Key&quot;,&quot;image&quot;:&quot;20x8.s00dw02c00z__U__Wc0YS0d703g&quot;},{&quot;id&quot;:47,&quot;title&quot;:&quot;Jeep&quot;,&quot;image&quot;:&quot;30x15.00__Y01Mse01ws7030s70f0s7v_0s7_____Yv_-eXL_ZSTT_XXKX_TtJr_SJeV_Ds7M03U3w01M&quot;},{&quot;id&quot;:46,&quot;title&quot;:&quot;House&quot;,&quot;image&quot;:&quot;42x21.0fM00000cM000004w000004w00000Y____01_____w3_____M7_____Uf_____Y______________g000002nL3UvDWnL3UvDWnL3UvDWnL3UvDWnL3UvDWnL3UvDWg03U002g03U002v_____-&quot;},{&quot;id&quot;:45,&quot;title&quot;:&quot;Heart&quot;,&quot;image&quot;:&quot;13x12.eefLL________v_7_1_0v07010&quot;},{&quot;id&quot;:44,&quot;title&quot;:&quot;Hammer&quot;,&quot;image&quot;:&quot;19x25.U_Mv_-f__D__XzYY0Y70c1w6003001w00M00o00c00f007w03M01U00Y00u00f007w03M01U00Y00c00&quot;},{&quot;id&quot;:43,&quot;title&quot;:&quot;Gun&quot;,&quot;image&quot;:&quot;25x20.o000f00sf__Y7__Y3__Y07__w0__U07_Y01__00O_w0hjU099Y044v01Yfw007U003Y000-000v000fw003w&quot;},{&quot;id&quot;:42,&quot;title&quot;:&quot;Guitar&quot;,&quot;image&quot;:&quot;13x30.3U1k0-0v0503w1g0U0k0e0fwdoeKfnDHPRVWYts7Y3-3_z_VUZUf-f____XwU_U7M&quot;},{&quot;id&quot;:41,&quot;title&quot;:&quot;Swan&quot;,&quot;image&quot;:&quot;17x19.u01-03e06c04o08M01w0300e00U03w07LNv_S__Z__X__D__7_Y7_M&quot;},{&quot;id&quot;:39,&quot;title&quot;:&quot;Cup&quot;,&quot;image&quot;:&quot;11x18.fV_-_J_r-TZvYfwe080U1M3w2040s1Y3U&quot;},{&quot;id&quot;:38,&quot;title&quot;:&quot;Glasses&quot;,&quot;image&quot;:&quot;24x14.001wM01gE01oI01cA014C0062002300310011___0wu10wi10MP30vx-&quot;},{&quot;id&quot;:37,&quot;title&quot;:&quot;Girl&quot;,&quot;image&quot;:&quot;15x15.0300Y07w0s01M0u07M1-07goO7Kh_Ov-rfNMY0&quot;},{&quot;id&quot;:36,&quot;title&quot;:&quot;Genie&quot;,&quot;image&quot;:&quot;23x29.07Y00oc01wc030o06-M07n0A3UiU4gUknh0VwS3_z-3_7-3_7U3_fw3um00Vw01T003-007Y007U00fM00vw3M_0dMY0hXU01_M03_003-003M00&quot;},{&quot;id&quot;:35,&quot;title&quot;:&quot;Gangster&quot;,&quot;image&quot;:&quot;19x25.06005w07M01U00v1U_wf_U3_Y0f-00_00fw07M03U01Y01-00Xw0VM0Us0o60s3we0M3ws0M60o30Y7w&quot;},{&quot;id&quot;:32,&quot;title&quot;:&quot;Flag&quot;,&quot;image&quot;:&quot;22x29.0_04f_1X_________________________________Yf--07zw00c000M003000c000M003000c000M003000c000M003000c000M0030000&quot;},{&quot;id&quot;:31,&quot;title&quot;:&quot;Fish&quot;,&quot;image&quot;:&quot;14x6.w-c_X_X__Y_W3U&quot;},{&quot;id&quot;:30,&quot;title&quot;:&quot;Fish&quot;,&quot;image&quot;:&quot;24x13.0c000o000-003_007_w0f_M0t_Y7__-ef__s3__U0U3Y0s0u0007&quot;},{&quot;id&quot;:28,&quot;title&quot;:&quot;Elephant&quot;,&quot;image&quot;:&quot;28x22.0001U000fM000N007Pw01_D00cvsfNLTN_-_-f_U_M__VU3___Uf__Y0_L_M3_v_07Z_-0vL_Y1Z_LU7K0XwsU3K1Pweo7e0VwuY3T0&quot;},{&quot;id&quot;:27,&quot;title&quot;:&quot;Dolphin&quot;,&quot;image&quot;:&quot;25x28.7UY0f__M0v_-0fwfwfw3Ufw3SfY7_D___P_fK3-7C1_fC1_f00_w00vw00fM007U001Y000Y000e00070003w001U001_000_M00s000s000c00040000&quot;},{&quot;id&quot;:26,&quot;title&quot;:&quot;USD&quot;,&quot;image&quot;:&quot;14x26.3c0P0cM7-3_N_-_fKPrYMvc3X0vM3Y0_wdY3fwPYcTrdTPtY_f_N_YfY3c0P0&quot;},{&quot;id&quot;:25,&quot;title&quot;:&quot;Dog&quot;,&quot;image&quot;:&quot;24x25.00U021Y071-0fzL0t_70U_20V_00N_w03rw03rw07rM0f_U0f_U0ftU07zM03_w60_Mf0vUf0vY70v-30ru70Xv70XLu1XTY1XTw&quot;},{&quot;id&quot;:24,&quot;title&quot;:&quot;Dog&quot;,&quot;image&quot;:&quot;34x25.0u003M3Y00vwvM01__L003__Y003__U007v_w00sf-001MvY3_e0____M3___-0f___U0v___w1____07___Y0f___M0____w3___-0e_0_Y0Xw0XM3K03D0eU06c0P00oM7s03D0Xw0sY&quot;},{&quot;id&quot;:23,&quot;title&quot;:&quot;Dog&quot;,&quot;image&quot;:&quot;36x20.1M00003U000suY000-_Y000__-000Tf-000T1_000O1_wvZM1____M0____w0___-00___-00v__-00v__Y00f-vY00dMeU00dweo00dw6o00dw6o00vweU0&quot;},{&quot;id&quot;:22,&quot;title&quot;:&quot;Woman&quot;,&quot;image&quot;:&quot;16x25.0o03M0f00Y01w0fw1_Lf_D_Ie-01M0700S0640Mo70wo33w6e0pY3T__v_Y__x_Y0Nw&quot;},{&quot;id&quot;:20,&quot;title&quot;:&quot;Crocodile&quot;,&quot;image&quot;:&quot;24x13.0M00xofw_Y_M7__U___Y0__-0fP_060_0-0j003S000c001U0070&quot;},{&quot;id&quot;:19,&quot;title&quot;:&quot;Scorpio&quot;,&quot;image&quot;:&quot;25x34.300o3w0e3M07zU03VY01_-00__00v_007C081z0e0NM70UvXLU07Y0c3-13L_Xws_D1wvM8t__s3DYU61Y31T_T0eve00fw007M07zU070U030s01we00M700s3w061M03xM00_U007M00&quot;},{&quot;id&quot;:15,&quot;title&quot;:&quot;Cat&quot;,&quot;image&quot;:&quot;17x11.vw1Dw2vB4_L9_Xh_-D_UIfxnvUws0Uv0&quot;},{&quot;id&quot;:14,&quot;title&quot;:&quot;Car&quot;,&quot;image&quot;:&quot;43x15.07__0000u61U009_10vU07_ww7_M3_Uo3_-0______Mv_____Uf______7______PU___N_YWL__Rv-sD__Vf-6H00dm01z003600v000-00&quot;},{&quot;id&quot;:11,&quot;title&quot;:&quot;Birdie&quot;,&quot;image&quot;:&quot;25x18.7w027U03C_07__-vU___Mff_03f_00D_Y0p__M4v_w30400VY007y000z000N000Mw00gM00o00&quot;},{&quot;id&quot;:9,&quot;title&quot;:&quot;Bell&quot;,&quot;image&quot;:&quot;15x22.0g0200E0501Y0vM7_0LU5_0LU5_0LUf_x_Yr_Q____X_-7_0300s01w&quot;},{&quot;id&quot;:8,&quot;title&quot;:&quot;Beer&quot;,&quot;image&quot;:&quot;22x23.0U01WTMcNNwxy22008800wv_Y1w0_f__-__-v__U___z__-f__U___z__-v___L__Y___x__U7__wf_U0v_00&quot;},{&quot;id&quot;:7,&quot;title&quot;:&quot;Panda&quot;,&quot;image&quot;:&quot;28x30.00U0007M000_wu03-3Yv___P0U0_o601X0M0382002wo00a1100oce31wNUu737NUscu7xMUMubDM0MKvw06Z_z1X__1_D__T-v_U_VY_Z_zP_7-ffYvMu_N_1V_7U07Yv00fXY00vLw&quot;},{&quot;id&quot;:6,&quot;title&quot;:&quot;Bear&quot;,&quot;image&quot;:&quot;25x30.1Y1Y1_1_0_w_wv__M7Y7M3M0M3w083w023zUt1D-vgTXJET_TYt_N-d_MvB_PTO_UPVLY1ZL_tYF__-mv_Z7DYtPU_Y_-fY__z-v_U-vfYef1_2f0vMe07Ye00_e0&quot;},{&quot;id&quot;:5,&quot;title&quot;:&quot;Bear&quot;,&quot;image&quot;:&quot;22x35.00U007M00v00fY03_w0v_01_Y0f_M1X_wf_-1__U7__Mv__0__Y0V_U07_w0v-01_Y07_M0v_w1__0f_Y0__M3__0f_Y0__M7__0__Y7_DN_V_v_v__X___v__X_Z-__M&quot;},{&quot;id&quot;:4,&quot;title&quot;:&quot;Bat&quot;,&quot;image&quot;:&quot;24x18.048006o006o037UM63Mof3MYvPP-v__-________________Pv-PyfYhw7U1w7U103M002g0&quot;},{&quot;id&quot;:3,&quot;title&quot;:&quot;Equilibrium&quot;,&quot;image&quot;:&quot;18x18.0_03_M6hUcwUow-ow-MN_M__Mv_M7_MV_NY_pY-pY-cVY63U3_M0_0&quot;}],
-    puzzlesFiltered: [],
-    puzzlesReady: [],
-    puzzlesShow: [],
-
-    seachString: '',
-
-    sizes: {
-      all:    { min: 0,    max: 40000 },
-      tiny:   { min: 0,    max: 225   },
-      small:  { min: 225,  max: 625   },
-      medium: { min: 625,  max: 1600  },
-      lange:  { min: 1600, max: 3025  },
-      giant:  { min: 3025, max: 40000 },
-    },
-    currentSize: 'all',
-
-    fuse: null,
-    puzzlesFilter() {
-      let puzzlesSearched = this.seachString ? this.fuse.search(this.seachString).map(searchItem => searchItem.item) : this.puzzlesAll;
-      this.puzzlesFiltered = puzzlesSearched.filter(puzzle => {
-        let area = puzzle.image.split('.')[0].split('x').reduce((a, b) => a * b, 1);
-        return area > this.sizes[this.currentSize].min && area < this.sizes[this.currentSize].max;
-      });
-      this.puzzlesReady = this.puzzlesFiltered;
-      this.puzzlesShow = [];
-      this.puzzlesMore();
-    },
-    puzzlesMore() {
-      this.puzzlesShow.push(...this.puzzlesReady.splice(0, 50));
-    },
-  }"
-  x-init="
-    fuse = new Fuse(puzzlesAll, { keys: ['id', 'title'] });
-    puzzlesFilter();
+    bg-cover bg-fixed
+    bg-[url('https://images.unsplash.com/photo-1656296506976-81e916ca9d74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80')]
   "
 >
-  <div class="w-11/12 md:w-4/5 max-w-3xl py-16 flex flex-col items-center">
-    <div class="form-control w-full mb-8 flex flex-row gap-4">
-      <a
-        class="btn btn-secondary gap-2"
-        href="/evilgrams/upload"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 24 24" width="24" fill="currentColor"><path d="M8 3.414v5.642a1 1 0 1 1-2 0V3.414L4.879 4.536A1 1 0 0 1 3.464 3.12L6.293.293a1 1 0 0 1 1.414 0l2.829 2.828A1 1 0 1 1 9.12 4.536L8 3.414zM1 12h12a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2z"></path></svg>
-        <span class="hidden sm:inline">Upload</span>
-      </a>
-      <button
-        class="btn btn-accent gap-2"
-        @click="alert(puzzlesFiltered[Math.floor(Math.random() * puzzlesFiltered.length)].id)"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M16,0 C18.209139,0 20,1.790861 20,4 L20,16 C20,18.209139 18.209139,20 16,20 L4,20 C1.790861,20 0,18.209139 0,16 L0,4 C0,1.790861 1.790861,0 4,0 L16,0 Z M15,13 C13.8954305,13 13,13.8954305 13,15 C13,16.1045695 13.8954305,17 15,17 C16.1045695,17 17,16.1045695 17,15 C17,13.8954305 16.1045695,13 15,13 Z M10,8 C8.8954305,8 8,8.8954305 8,10 C8,11.1045695 8.8954305,12 10,12 C11.1045695,12 12,11.1045695 12,10 C12,8.8954305 11.1045695,8 10,8 Z M5,3 C3.8954305,3 3,3.8954305 3,5 C3,6.1045695 3.8954305,7 5,7 C6.1045695,7 7,6.1045695 7,5 C7,3.8954305 6.1045695,3 5,3 Z"></path></svg>
-        <span class="hidden sm:inline">Random</span>
-      </button>
-      <div class="input-group">
-        <input
-          type="text" placeholder="Search…" class="input input-bordered w-full" x-model="seachString"
-          @keyup.enter="puzzlesFilter()"
-        />
-        <button class="btn btn-square btn-primary" @click="puzzlesFilter()">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2.5 -2.5 24 24" width="24" fill="currentColor"><path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12zm6.32-1.094l3.58 3.58a1 1 0 1 1-1.415 1.413l-3.58-3.58a8 8 0 1 1 1.414-1.414z"></path></svg>
-        </button>
-      </div>
-    </div>
-    <div class="tabs">
-      <template x-for="size in Object.keys(sizes)">
-        <button
-          class="tab tab-xs xs:tab-md [--tab-bg:hsl(var(--b2))]"
-          :class="size === currentSize ? 'tab-lifted tab-active' : 'text-base-content'"
-          @click="currentSize = size; puzzlesFilter()"
-        >
-          <span
-            class="capitalize duration-75"
-            :class="size !== currentSize ? 'hover:scale-110' : ''"
-            x-text="size"
-          ></span>
-        </button>
-      </template>
-      <span></span>
-    </div>
+  <div
+    class="flex flex-col items-center bg-base-100 bg-opacity-60 backdrop-blur-md"
+    id="puzzles"
+    x-data="{
+      puzzlesAll: [{&quot;id&quot;:50,&quot;title&quot;:&quot;Truck&quot;,&quot;image&quot;:&quot;44x24.000M000000c___U0f_v___07_T___M3U____Y0Sf____09z____w2o____MvCfv__VfVDT__YT__Z__-t___v__ev__P__Df__Y003P______U______-e3__Y703vv_--LwLX__vTYfL___tT3NLY1zoMeX_0tTs3-007Z_0v000-fw&quot;},{&quot;id&quot;:49,&quot;title&quot;:&quot;Trebleclef&quot;,&quot;image&quot;:&quot;9x20.20o3ws2wk2woe3gPCSSujOrmfwg20M&quot;},{&quot;id&quot;:48,&quot;title&quot;:&quot;Key&quot;,&quot;image&quot;:&quot;20x8.s00dw02c00z__U__Wc0YS0d703g&quot;},{&quot;id&quot;:47,&quot;title&quot;:&quot;Jeep&quot;,&quot;image&quot;:&quot;30x15.00__Y01Mse01ws7030s70f0s7v_0s7_____Yv_-eXL_ZSTT_XXKX_TtJr_SJeV_Ds7M03U3w01M&quot;},{&quot;id&quot;:46,&quot;title&quot;:&quot;House&quot;,&quot;image&quot;:&quot;42x21.0fM00000cM000004w000004w00000Y____01_____w3_____M7_____Uf_____Y______________g000002nL3UvDWnL3UvDWnL3UvDWnL3UvDWnL3UvDWnL3UvDWg03U002g03U002v_____-&quot;},{&quot;id&quot;:45,&quot;title&quot;:&quot;Heart&quot;,&quot;image&quot;:&quot;13x12.eefLL________v_7_1_0v07010&quot;},{&quot;id&quot;:44,&quot;title&quot;:&quot;Hammer&quot;,&quot;image&quot;:&quot;19x25.U_Mv_-f__D__XzYY0Y70c1w6003001w00M00o00c00f007w03M01U00Y00u00f007w03M01U00Y00c00&quot;},{&quot;id&quot;:43,&quot;title&quot;:&quot;Gun&quot;,&quot;image&quot;:&quot;25x20.o000f00sf__Y7__Y3__Y07__w0__U07_Y01__00O_w0hjU099Y044v01Yfw007U003Y000-000v000fw003w&quot;},{&quot;id&quot;:42,&quot;title&quot;:&quot;Guitar&quot;,&quot;image&quot;:&quot;13x30.3U1k0-0v0503w1g0U0k0e0fwdoeKfnDHPRVWYts7Y3-3_z_VUZUf-f____XwU_U7M&quot;},{&quot;id&quot;:41,&quot;title&quot;:&quot;Swan&quot;,&quot;image&quot;:&quot;17x19.u01-03e06c04o08M01w0300e00U03w07LNv_S__Z__X__D__7_Y7_M&quot;},{&quot;id&quot;:39,&quot;title&quot;:&quot;Cup&quot;,&quot;image&quot;:&quot;11x18.fV_-_J_r-TZvYfwe080U1M3w2040s1Y3U&quot;},{&quot;id&quot;:38,&quot;title&quot;:&quot;Glasses&quot;,&quot;image&quot;:&quot;24x14.001wM01gE01oI01cA014C0062002300310011___0wu10wi10MP30vx-&quot;},{&quot;id&quot;:37,&quot;title&quot;:&quot;Girl&quot;,&quot;image&quot;:&quot;15x15.0300Y07w0s01M0u07M1-07goO7Kh_Ov-rfNMY0&quot;},{&quot;id&quot;:36,&quot;title&quot;:&quot;Genie&quot;,&quot;image&quot;:&quot;23x29.07Y00oc01wc030o06-M07n0A3UiU4gUknh0VwS3_z-3_7-3_7U3_fw3um00Vw01T003-007Y007U00fM00vw3M_0dMY0hXU01_M03_003-003M00&quot;},{&quot;id&quot;:35,&quot;title&quot;:&quot;Gangster&quot;,&quot;image&quot;:&quot;19x25.06005w07M01U00v1U_wf_U3_Y0f-00_00fw07M03U01Y01-00Xw0VM0Us0o60s3we0M3ws0M60o30Y7w&quot;},{&quot;id&quot;:32,&quot;title&quot;:&quot;Flag&quot;,&quot;image&quot;:&quot;22x29.0_04f_1X_________________________________Yf--07zw00c000M003000c000M003000c000M003000c000M003000c000M0030000&quot;},{&quot;id&quot;:31,&quot;title&quot;:&quot;Fish&quot;,&quot;image&quot;:&quot;14x6.w-c_X_X__Y_W3U&quot;},{&quot;id&quot;:30,&quot;title&quot;:&quot;Fish&quot;,&quot;image&quot;:&quot;24x13.0c000o000-003_007_w0f_M0t_Y7__-ef__s3__U0U3Y0s0u0007&quot;},{&quot;id&quot;:28,&quot;title&quot;:&quot;Elephant&quot;,&quot;image&quot;:&quot;28x22.0001U000fM000N007Pw01_D00cvsfNLTN_-_-f_U_M__VU3___Uf__Y0_L_M3_v_07Z_-0vL_Y1Z_LU7K0XwsU3K1Pweo7e0VwuY3T0&quot;},{&quot;id&quot;:27,&quot;title&quot;:&quot;Dolphin&quot;,&quot;image&quot;:&quot;25x28.7UY0f__M0v_-0fwfwfw3Ufw3SfY7_D___P_fK3-7C1_fC1_f00_w00vw00fM007U001Y000Y000e00070003w001U001_000_M00s000s000c00040000&quot;},{&quot;id&quot;:26,&quot;title&quot;:&quot;USD&quot;,&quot;image&quot;:&quot;14x26.3c0P0cM7-3_N_-_fKPrYMvc3X0vM3Y0_wdY3fwPYcTrdTPtY_f_N_YfY3c0P0&quot;},{&quot;id&quot;:25,&quot;title&quot;:&quot;Dog&quot;,&quot;image&quot;:&quot;24x25.00U021Y071-0fzL0t_70U_20V_00N_w03rw03rw07rM0f_U0f_U0ftU07zM03_w60_Mf0vUf0vY70v-30ru70Xv70XLu1XTY1XTw&quot;},{&quot;id&quot;:24,&quot;title&quot;:&quot;Dog&quot;,&quot;image&quot;:&quot;34x25.0u003M3Y00vwvM01__L003__Y003__U007v_w00sf-001MvY3_e0____M3___-0f___U0v___w1____07___Y0f___M0____w3___-0e_0_Y0Xw0XM3K03D0eU06c0P00oM7s03D0Xw0sY&quot;},{&quot;id&quot;:23,&quot;title&quot;:&quot;Dog&quot;,&quot;image&quot;:&quot;36x20.1M00003U000suY000-_Y000__-000Tf-000T1_000O1_wvZM1____M0____w0___-00___-00v__-00v__Y00f-vY00dMeU00dweo00dw6o00dw6o00vweU0&quot;},{&quot;id&quot;:22,&quot;title&quot;:&quot;Woman&quot;,&quot;image&quot;:&quot;16x25.0o03M0f00Y01w0fw1_Lf_D_Ie-01M0700S0640Mo70wo33w6e0pY3T__v_Y__x_Y0Nw&quot;},{&quot;id&quot;:20,&quot;title&quot;:&quot;Crocodile&quot;,&quot;image&quot;:&quot;24x13.0M00xofw_Y_M7__U___Y0__-0fP_060_0-0j003S000c001U0070&quot;},{&quot;id&quot;:19,&quot;title&quot;:&quot;Scorpio&quot;,&quot;image&quot;:&quot;25x34.300o3w0e3M07zU03VY01_-00__00v_007C081z0e0NM70UvXLU07Y0c3-13L_Xws_D1wvM8t__s3DYU61Y31T_T0eve00fw007M07zU070U030s01we00M700s3w061M03xM00_U007M00&quot;},{&quot;id&quot;:15,&quot;title&quot;:&quot;Cat&quot;,&quot;image&quot;:&quot;17x11.vw1Dw2vB4_L9_Xh_-D_UIfxnvUws0Uv0&quot;},{&quot;id&quot;:14,&quot;title&quot;:&quot;Car&quot;,&quot;image&quot;:&quot;43x15.07__0000u61U009_10vU07_ww7_M3_Uo3_-0______Mv_____Uf______7______PU___N_YWL__Rv-sD__Vf-6H00dm01z003600v000-00&quot;},{&quot;id&quot;:11,&quot;title&quot;:&quot;Birdie&quot;,&quot;image&quot;:&quot;25x18.7w027U03C_07__-vU___Mff_03f_00D_Y0p__M4v_w30400VY007y000z000N000Mw00gM00o00&quot;},{&quot;id&quot;:9,&quot;title&quot;:&quot;Bell&quot;,&quot;image&quot;:&quot;15x22.0g0200E0501Y0vM7_0LU5_0LU5_0LUf_x_Yr_Q____X_-7_0300s01w&quot;},{&quot;id&quot;:8,&quot;title&quot;:&quot;Beer&quot;,&quot;image&quot;:&quot;22x23.0U01WTMcNNwxy22008800wv_Y1w0_f__-__-v__U___z__-f__U___z__-v___L__Y___x__U7__wf_U0v_00&quot;},{&quot;id&quot;:7,&quot;title&quot;:&quot;Panda&quot;,&quot;image&quot;:&quot;28x30.00U0007M000_wu03-3Yv___P0U0_o601X0M0382002wo00a1100oce31wNUu737NUscu7xMUMubDM0MKvw06Z_z1X__1_D__T-v_U_VY_Z_zP_7-ffYvMu_N_1V_7U07Yv00fXY00vLw&quot;},{&quot;id&quot;:6,&quot;title&quot;:&quot;Bear&quot;,&quot;image&quot;:&quot;25x30.1Y1Y1_1_0_w_wv__M7Y7M3M0M3w083w023zUt1D-vgTXJET_TYt_N-d_MvB_PTO_UPVLY1ZL_tYF__-mv_Z7DYtPU_Y_-fY__z-v_U-vfYef1_2f0vMe07Ye00_e0&quot;},{&quot;id&quot;:5,&quot;title&quot;:&quot;Bear&quot;,&quot;image&quot;:&quot;22x35.00U007M00v00fY03_w0v_01_Y0f_M1X_wf_-1__U7__Mv__0__Y0V_U07_w0v-01_Y07_M0v_w1__0f_Y0__M3__0f_Y0__M7__0__Y7_DN_V_v_v__X___v__X_Z-__M&quot;},{&quot;id&quot;:4,&quot;title&quot;:&quot;Bat&quot;,&quot;image&quot;:&quot;24x18.048006o006o037UM63Mof3MYvPP-v__-________________Pv-PyfYhw7U1w7U103M002g0&quot;},{&quot;id&quot;:3,&quot;title&quot;:&quot;Equilibrium&quot;,&quot;image&quot;:&quot;18x18.0_03_M6hUcwUow-ow-MN_M__Mv_M7_MV_NY_pY-pY-cVY63U3_M0_0&quot;}],
+      puzzlesFiltered: [],
+      puzzlesReady: [],
+      puzzlesShowed: [],
 
-    <div class="overflow-x-auto w-full rounded-md overflow-hidden bg-base-200">
-      <table class="table table-compact xs:table-normal w-full">
-        <thead>
-          <tr>
-            <td>ID</td>
-            <td>Size</td>
-            <td>Name</td>
-          </tr>
-        </thead>
-        <tbody>
-          <template x-for="(puzzle, id) in puzzlesShow" :key="puzzle.id">
+      seachString: '',
+
+      sizes: {
+        all:    { min: 0,    max: 40000 },
+        tiny:   { min: 0,    max: 225   },
+        small:  { min: 225,  max: 625   },
+        medium: { min: 625,  max: 1600  },
+        lange:  { min: 1600, max: 3025  },
+        giant:  { min: 3025, max: 40000 },
+      },
+      currentSize: 'all',
+
+      fuse: null,
+      puzzlesFilter() {
+        let puzzlesSearched = this.seachString ? this.fuse.search(this.seachString).map(searchItem => searchItem.item) : this.puzzlesAll;
+        this.puzzlesFiltered = puzzlesSearched.filter(puzzle => {
+          let area = puzzle.image.split('.')[0].split('x').reduce((a, b) => a * b, 1);
+          return area > this.sizes[this.currentSize].min && area < this.sizes[this.currentSize].max;
+        });
+        this.puzzlesReady = this.puzzlesFiltered.slice();
+        this.puzzlesShowed = [];
+        this.puzzlesMore();
+      },
+      puzzlesMore() {
+        this.puzzlesShowed.push(...this.puzzlesReady.splice(0, 50));
+      },
+    }"
+    x-init="
+      fuse = new Fuse(puzzlesAll, { keys: ['id', 'title'] });
+      puzzlesFilter();
+    "
+  >
+    <div class="w-11/12 md:w-4/5 max-w-6xl py-16 flex flex-col items-center">
+      <div class="form-control w-full mb-8 flex flex-row gap-4">
+        <a
+          class="btn btn-secondary gap-2"
+          href="/evilgrams/upload"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 24 24" width="24" fill="currentColor"><path d="M8 3.414v5.642a1 1 0 1 1-2 0V3.414L4.879 4.536A1 1 0 0 1 3.464 3.12L6.293.293a1 1 0 0 1 1.414 0l2.829 2.828A1 1 0 1 1 9.12 4.536L8 3.414zM1 12h12a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2z"></path></svg>
+          <span class="hidden sm:inline">Upload</span>
+        </a>
+        <button
+          class="btn btn-accent gap-2"
+          @click="
+            window.location.href = '/evilgrams/puzzle/' + puzzlesFiltered[
+              Math.floor(Math.random() * puzzlesFiltered.length)
+            ].id;
+          "
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M16,0 C18.209139,0 20,1.790861 20,4 L20,16 C20,18.209139 18.209139,20 16,20 L4,20 C1.790861,20 0,18.209139 0,16 L0,4 C0,1.790861 1.790861,0 4,0 L16,0 Z M15,13 C13.8954305,13 13,13.8954305 13,15 C13,16.1045695 13.8954305,17 15,17 C16.1045695,17 17,16.1045695 17,15 C17,13.8954305 16.1045695,13 15,13 Z M10,8 C8.8954305,8 8,8.8954305 8,10 C8,11.1045695 8.8954305,12 10,12 C11.1045695,12 12,11.1045695 12,10 C12,8.8954305 11.1045695,8 10,8 Z M5,3 C3.8954305,3 3,3.8954305 3,5 C3,6.1045695 3.8954305,7 5,7 C6.1045695,7 7,6.1045695 7,5 C7,3.8954305 6.1045695,3 5,3 Z"></path></svg>
+          <span class="hidden sm:inline">Random</span>
+        </button>
+        <div class="input-group">
+          <input
+            type="text" placeholder="Search…" class="input input-bordered w-full"
+            x-model="seachString"
+            @keyup.enter="puzzlesFilter()"
+          />
+          <button class="btn btn-square btn-primary" @click="puzzlesFilter()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2.5 -2.5 24 24" width="24" fill="currentColor"><path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12zm6.32-1.094l3.58 3.58a1 1 0 1 1-1.415 1.413l-3.58-3.58a8 8 0 1 1 1.414-1.414z"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div class="tabs">
+        <template x-for="size in Object.keys(sizes)">
+          <button
+            class="tab tab-xs xs:tab-md [--tab-bg:hsl(var(--b2))]"
+            :class="size === currentSize ? 'tab-lifted tab-active' : 'text-base-content'"
+            @click="currentSize = size; puzzlesFilter()"
+          >
+            <span
+              class="capitalize duration-75"
+              :class="size !== currentSize ? 'hover:scale-110' : ''"
+              x-text="size"
+            ></span>
+          </button>
+        </template>
+        <span></span>
+      </div>
+
+      <div class="overflow-x-auto w-full rounded-md overflow-hidden bg-base-200">
+        <table class="table table-compact xs:table-normal w-full">
+          <thead>
             <tr>
-              <td x-text="puzzle.id"></td>
-              <td x-text="puzzle.image.split('.')[0]"></td>
-              <td>
-                <a
-                  class="link"
-                  x-text="puzzle.title"
-                  :href="'/evilgrams/puzzle/' + puzzle.id"
-                ></a>
-              </td>
+              <td>ID</td>
+              <td>Dif</td>
+              <td>Pic</td>
+              <td>Size</td>
+              <td>Name</td>
+              <td>Author</td>
+              <td>Date</td>
             </tr>
-          </template>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <template x-for="(puzzle, id) in puzzlesShowed" :key="puzzle.id">
+              <tr>
+                <td x-text="puzzle.id"></td>
+                <td>2.5</td>
+                <td>2.5</td>
+                <td x-text="puzzle.image.split('.')[0]"></td>
+                <td>
+                  <a
+                    class="link"
+                    x-text="puzzle.title"
+                    :href="'/evilgrams/puzzle/' + puzzle.id"
+                  ></a>
+                </td>
+                <td x-text="puzzle.author"></td>
+                <td x-text="puzzle.date"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+      <button
+        class="btn btn-primary mt-8"
+        x-show="puzzlesReady.length !== 0"
+        @click="puzzlesMore()"
+      >Show More</button>    
     </div>
-    <button
-      class="btn btn-primary mt-8"
-      x-show="puzzlesReady.length !== 0"
-      @click="puzzlesMore()"
-    >Show More</button>    
   </div>
 </div>
     <footer class="footer p-4 text-base-content bg-base-100">
@@ -2754,4 +2689,14 @@ body[dir="rtl"] .checkbox:checked,
       </div>
     </footer>
   </body>
+  <input type="checkbox" id="settings-modal" class="modal-toggle" />
+  <label class="modal cursor-pointer" for="settings-modal">
+    <label class="modal-box relative" for="">
+      <h3 class="mb-4 text-center font-bold text-lg">Setting</h3>
+      
+      <div class="modal-action">
+        <button class="btn">Reset Settings</button>
+      </div>
+    </label>
+  </label>
 </html>
