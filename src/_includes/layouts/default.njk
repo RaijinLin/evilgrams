@@ -9,20 +9,16 @@ themes: ["System", "Light", "Dark", "Cupcake", "Bumblebee", "Emerald", "Corporat
   x-data="
     {
       avatar: $persist(''),
+      puzzlesSolved: $persist([]),
+
       showTitle: $persist(false),
       themeCurrent: $persist('System'),
-      puzzlesSolved: $persist([]),
       resetSettings() {
         this.showTitle = false;
         this.themeCurrent = 'System';
       },
-    }
-  "
-  x-init="
-    console.log();
-    if(!avatar) {
-      const user = await (await fetch('https://api.github.com/users/nnbnh')).json();
-      avatar = user.avatar_url;
+
+      id: parseInt(new URLSearchParams(location.search).get('id')),
     }
   "
   :data-theme="themeCurrent === 'system' ? '' : themeCurrent.toLowerCase()"
@@ -49,17 +45,7 @@ themes: ["System", "Light", "Dark", "Cupcake", "Bumblebee", "Emerald", "Corporat
           </a></li>
           {% if title === "Puzzles" %}
             <li><a href="{{ '/' | url }}#puzzles">Puzzles</a></li>
-            <li
-              x-text="
-                console.log();
-                const id = new URLSearchParams(location.search).get('id');
-                if(id) {
-                  return 'No.' + id;
-                } else {
-                  return 'Custom puzzle';
-                }
-              "
-            ></li>
+            <li x-text="id ? ('No.' + id) : 'Custom puzzle'"></li>
           {% elif title !== "Home" %}
             <li>{{ title }}</li>
           {% endif %}

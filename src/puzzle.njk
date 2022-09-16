@@ -13,9 +13,7 @@ title: Puzzles
     }
   "
   x-init="
-    console.log();
-    const paramsId = parseInt(new URLSearchParams(location.search).get('id'));
-    puzzle = {{ puzzles | reverse | dump }}.filter(puzzle => puzzle.id === paramsId)[0];
+    puzzle = {{ puzzles | reverse | dump }}.filter(puzzle => puzzle.id === id)[0];
 
     const colors = {
       primary:   '#09A8EC',
@@ -69,7 +67,10 @@ title: Puzzles
       clueGenerate(data[0].map((_, colIndex) => data.map(row => row[colIndex]))),
       'game',
       {
-        theme: nonogramTheme,
+        theme: {
+          ...nonogramTheme,
+          width: width <= 40 ? window.innerHeight * 9/10 * width/height : window.innerWidth,
+        },
         onSuccess() { solved = true },
       },
     );
@@ -185,7 +186,7 @@ title: Puzzles
 </div>
 
 <div class="flex flex-col items-center pb-8 gap-8">
-  <canvas id="game" class="w-full"></canvas>
+  <canvas id="game" class="max-w-full"></canvas>
 
   <div class="flex gap-2">
     <label class="btn btn-sm btn-circle btn-accent" for="solver-modal">
