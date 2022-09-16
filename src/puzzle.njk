@@ -95,7 +95,9 @@ title: Puzzles
         <span x-show="showTitle" x-text="puzzle.title"></span>
         <button class="group" x-show="!showTitle">
           <span class="hidden group-focus:inline" x-text="puzzle.title"></span>
-          <span class="inline group-focus:hidden italic">(Show title)</span>
+          <span class="inline group-focus:hidden italic bg-base-300">
+            &nbsp;(Click to show title)&nbsp;
+          </span>
         </button>
       </li>
       <li>Date: <span x-text="puzzle.date"></span></li>
