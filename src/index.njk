@@ -13,10 +13,41 @@ title: Home
 <div class="hero">
   <div class="hero-overlay bg-base-100 bg-opacity-60 backdrop-blur-md"></div>
   <div class="hero-content my-16 flex-col md:flex-row-reverse max-w-5xl lg:gap-8">
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/6/64/Paint_by_numbers_Animation.gif"
-      class="max-w-xs rounded-lg shadow-2xl bg-slate-300"
-    />
+    <canvas id="solver" class="max-w-xs rounded-lg shadow-2xl bg-base-300"></canvas>
+    <script>
+      const colors = {
+        primary:   '#09A8EC',
+        secondary: '#777777',
+      };
+      const nonogramTheme = {
+        filledColor:  colors.primary,
+        unsetColor:   colors.secondary,
+        correctColor: colors.primary,
+        wrongColor:   colors.secondary,
+        meshColor:    colors.secondary,
+        isMeshOnTop:  true,
+      };
+
+      let solver = new nonogram.Solver(
+        [
+          [1, 1],
+          [5],
+          [5],
+          [3],
+          [1],
+        ],
+        [
+          [2],
+          [4],
+          [4],
+          [4],
+          [2],
+        ],
+        'solver',
+        { theme: nonogramTheme, delay: 100 },
+      );
+      setTimeout(solver.solve(), 10000);
+    </script>
     <div class="flex flex-col items-center md:items-start">
       <h1 class="text-4xl xs:text-5xl text-center font-bold">
         It's big brain time!
@@ -76,7 +107,7 @@ title: Home
     },
   }"
   x-init="
-    fuse = new Fuse(puzzlesAll, { keys: ['id', 'title'] });
+    fuse = new Fuse(puzzlesAll, { keys: ['id', 'title', 'author'] });
     puzzlesFilter();
   "
 >
