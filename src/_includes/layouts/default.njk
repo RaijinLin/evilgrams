@@ -27,10 +27,8 @@ themes: ["System", "Light", "Dark", "Cupcake", "Bumblebee", "Emerald", "Corporat
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evilgrams - {{ title }}</title>
-    {% set css %}
-    {% include "src/styles/index.css" %}
-    {% endset %}
   	<link rel="icon" href="https://raw.githubusercontent.com/michaelampr/jam/master/icons/table-cell-merge.svg" type="image/svg+xml">
+    {% set css %} {% include "src/styles/index.css" %} {% endset %}
     <style>{{ css | postcss | safe }}</style>
     <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
